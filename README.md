@@ -1,4 +1,7 @@
 # ENV settings
+
+
+
 ```sh
 git clone https://github.com/liyuqi/nexio_flask.git;
 cd nexio_flask;
@@ -6,24 +9,29 @@ docker-compose up -d;
 ```
 # API usage
 
-* POST | add user
+* POST | add user, autoincrement id
 ```sh
 curl -H "Content-Type: application/json" -X POST -d '{"name":"A"}' http://localhost:5000/api/user
 curl -H "Content-Type: application/json" -X POST -d '{"name":"B"}' http://localhost:5000/api/user
 ```
-* GET | get user, id info
+* GET | get all user info
 ```sh
 curl http://localhost:5000/api/user
+```
+* GET | get user info by id, /api/user/<user_id>
+```sh
+curl http://localhost:5000/api/user/<user_id>
 curl http://localhost:5000/api/user/2
 curl http://localhost:5000/api/user/3
 ```
-* PUT | mod user by id
+* PUT | mod user by id, /api/user/<user_id>
 ```sh
 curl -H "Content-Type: application/json" -X PUT -d '{"job_title":"OPS"}' http://localhost:5000/api/user/2
 curl -H "Content-Type: application/json" -X PUT -d '{"name":"C"}' http://localhost:5000/api/user/3
 ```
-* DELETE | del user by id
+* DELETE | del user by id, /api/user/<user_id>
 ```
+curl -H "Content-Type: application/json" -X DELETE http://localhost:5000/api/user/<user_id>
 curl -H "Content-Type: application/json" -X DELETE http://localhost:5000/api/user/2
 ```
 # Requirements Reference
