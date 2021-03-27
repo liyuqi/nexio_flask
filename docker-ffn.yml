@@ -1,0 +1,34 @@
+version: '3.3'
+services:
+
+  flask:
+    # build: ./flask
+    container_name: tmp_flask
+    # restart: always
+    environment:
+      - APP_NAME=FlaskApp
+    expose:
+      - 5001
+
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - "/var/log/nginx:/var/log/nginx"
+    container_name: tmp_nginx
+    # restart: always
+    ports:
+      - "80:80"
+
+    depends_on:
+      - flask
+
+  filebeat:
+    build: ./filebeat
+    volumes:
+      - "/var/log/nginx:/var/log/nginx"
+    container_name: tmp_filebeat
+    # restart: always
+
+    depends_on:
+      - nginx

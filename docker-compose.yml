@@ -1,10 +1,34 @@
-version: "2"
-services:
-  web:
-    build: .
-    ports:
-      - "5000:5000"
-    volumes:
-      - .:/code
+# version: "2"
+# services:
+#   web:
+#     build: .
+#     ports:
+#       - "5000:5000"
+#     volumes:
+#       - .:/code
+#     environment:
+#       FLASK_ENV: development
+
+version: "3"
+services: 
+  flask:
+    build: ./flask
+    container_name: template_flask
+    # restart: always
     environment:
-      FLASK_ENV: development
+      - APP_NAME=FlaskApp
+    expose:
+      - 8080
+
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - "/c/Users/user/flask-nginx-elk-demo/nginx-logs:/var/log/nginx"
+    container_name: template_nginx
+    # restart: always
+    ports:
+      - "80:80"
+
+    depends_on:
+      - flask
